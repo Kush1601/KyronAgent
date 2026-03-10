@@ -9,7 +9,7 @@ export interface ToastState {
 }
 
 const STYLES: Record<ToastType, string> = {
-  success: "border-green-300 text-green-700 bg-green-50",
+  success: "border-primary-300 text-primary-700 bg-primary-50",
   error: "border-red-300 text-red-700 bg-red-50",
   info: "border-blue-300 text-blue-700 bg-blue-50",
 };

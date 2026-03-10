@@ -7,7 +7,7 @@ type StepStatus = "pending" | "active" | "done";
 
 const STEPS: { key: SetupStep; label: string; sub: string }[] = [
   { key: "cloning-voice", label: "Cloning voice", sub: "POST /api/setup" },
-  { key: "creating-agent", label: "Creating agent", sub: "Vogent API" },
+  { key: "creating-agent", label: "Creating agent", sub: "Kyron API" },
   { key: "creating-prompt", label: "Writing personality", sub: "AI model setup" },
   { key: "ready", label: "Ready", sub: "Agent ready to call" },
 ];
@@ -36,28 +36,28 @@ export function SetupStep({ setupStep, agentId, voiceId, error, onRetry, stepSta
   return (
     <div className="mb-8 animate-fade-up" style={{ animationDelay: "0.15s", opacity: 0 }}>
       <StepHeader num="02" title="Build Your Clone" sub="Automatic: voice → agent → ready" status={stepStatus} />
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 gradient-border-card hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
         {idle && (
           <div className="text-center py-6">
             <div className="text-5xl mb-3 opacity-50">🔄</div>
-            <p className="text-gray-600 text-sm">Runs automatically after recording</p>
+            <p className="text-slate-500 text-sm">Runs automatically after recording</p>
           </div>
         )}
 
         {(running || done) && (
-          <div className="space-y-3 mb-4">
+          <div className="space-y-3 mb-4 stagger-children">
             {STEPS.map(({ key, label, sub }) => {
               const st = status(key, setupStep);
               const col = st === "done" ? colors.done : st === "active" ? colors.active : colors.pending;
 
               return (
-                <div key={key} className="flex items-center gap-3 p-3 rounded-xl border transition-all" style={{ borderColor: col.border, backgroundColor: col.bg, opacity: st === "pending" ? 0.4 : 1 }}>
+                <div key={key} className={`flex items-center gap-3 p-3 rounded-xl border transition-all duration-500 ${st === "active" ? "animate-breathe" : ""}`} style={{ borderColor: col.border, backgroundColor: col.bg, opacity: st === "pending" ? 0.4 : 1 }}>
                   <div className="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full text-xs" style={{ background: col.icon }}>
-                    {st === "done" ? "✓" : st === "active" ? <span className="w-3 h-3 rounded-full border-2 border-green-300 border-t-green-600 animate-spin" /> : "○"}
+                    {st === "done" ? "✓" : st === "active" ? <span className="w-3 h-3 rounded-full border-2 border-primary-300 border-t-primary-600 animate-spin" /> : "○"}
                   </div>
                   <div>
-                    <div className="text-sm font-medium" style={{ color: col.text }}>{label}</div>
-                    <div className="text-xs text-gray-500">{sub}</div>
+                    <div className="text-base font-semibold" style={{ color: col.text }}>{label}</div>
+                    <div className="text-sm text-slate-500">{sub}</div>
                   </div>
                 </div>
               );
@@ -66,13 +66,13 @@ export function SetupStep({ setupStep, agentId, voiceId, error, onRetry, stepSta
         )}
 
         {done && agentId && (
-          <div className="flex items-center gap-3 p-3.5 bg-green-50 border border-green-200 rounded-xl mt-2">
+          <div className="flex items-center gap-3 p-3.5 bg-primary-50 border border-primary-200 rounded-xl mt-2">
             <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #059669, #047857)" }}>🤖</div>
             <div className="flex-1 min-w-0">
               <div className="font-medium text-sm text-gray-900">{voiceName} Clone</div>
               <div className="text-xs text-gray-600 font-mono mt-0.5 truncate">id: {agentId}</div>
             </div>
-            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full flex-shrink-0 font-semibold">ready</span>
+            <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs rounded-full flex-shrink-0 font-semibold">ready</span>
           </div>
         )}
 

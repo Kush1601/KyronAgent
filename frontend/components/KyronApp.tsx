@@ -1,21 +1,21 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { RecordStep } from "./RecordStep";
 import { SetupStep } from "./SetupStep";
 import { CallStep } from "./CallStep";
 import { Toast } from "./Toast";
-import type { SetupStep as SetupStepType } from "../lib/types";
+import type { SetupStep as SetupStepType } from "@/lib/types";
 import type { ToastState } from "./Toast";
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5001";
 const bg = "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50";
 const card = "bg-white border border-gray-200 rounded-2xl shadow-sm";
-const input =
-  "w-full bg-white border border-gray-300 rounded-xl px-4 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-500";
+const inputClasses =
+  "w-full bg-white border border-gray-300 rounded-xl px-4 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-500";
 
-export function VoiceCloneApp() {
+export function KyronApp() {
   const [name, setName] = useState("My Clone");
   const [customPhrase, setCustomPhrase] = useState("");
   const [blob, setBlob] = useState<Blob | null>(null);
@@ -73,7 +73,7 @@ export function VoiceCloneApp() {
       setVoiceId(data.voiceId);
       setAgentId(data.agentId);
       setStep("ready");
-      notify("Your voice clone is ready! 🎉", "success");
+      notify("Your Kyron agent is ready! 🎉", "success");
     } catch (e) {
       const msg = (e as Error).message;
       setErr(msg);
@@ -94,7 +94,7 @@ export function VoiceCloneApp() {
   const onRecord = (audioBlob: Blob) => {
     setBlob(audioBlob);
     lock.current = false;
-    notify("Recording saved — building clone…", "info");
+    notify("Recording saved — building your Kyron agent…", "info");
   };
 
   const recordStatus = blob ? "done" : "active";
@@ -104,28 +104,28 @@ export function VoiceCloneApp() {
 
   return (
     <div className={`relative min-h-screen overflow-x-hidden ${bg}`}>
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 20% 0%, rgba(45,158,127,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 100%, rgba(27,94,63,0.06) 0%, transparent 60%)",
-        }}
-      />
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
+      </div>
 
       <div className="relative z-10 max-w-[900px] mx-auto px-6 pb-20">
-        <header className="pt-12 pb-8 mb-10 border-b border-white/10">
-          <div className="flex items-start justify-between">
-            <div>
-              <h1 className="text-5xl font-bold text-green-700 mb-2">
-                Vogen
-              </h1>
-              <p className="text-gray-600 text-sm">
-                Your Persnalized AI Voice Agent
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
+        <header className="pt-10 pb-8 mb-10 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <img src="/kyron_logo.png" alt="Kyron Medical" className="h-20 object-contain" />
               <div>
-                <label className="text-gray-600 text-xs font-medium">
+                <h1 className="text-3xl font-bold tracking-tight text-slate-950 text-transparent bg-clip-text bg-gradient-to-r from-primary-700 via-primary-400 to-primary-700 bg-[length:200%_auto] animate-shimmer">Kyron</h1>
+                <p className="text-sm text-slate-500 mt-0.5">
+                  AI-powered voice agents modernizing patient access &amp; insurance workflows.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 mt-4">
+              <div>
+                <label className="text-slate-500 text-xs font-medium block mb-1">
                   Your name
                 </label>
                 <input
@@ -133,7 +133,7 @@ export function VoiceCloneApp() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="My Clone"
-                  className={`${input} w-40`}
+                  className={`${inputClasses} w-48`}
                 />
               </div>
             </div>
@@ -141,23 +141,37 @@ export function VoiceCloneApp() {
         </header>
 
         {/* Custom Phrase Input */}
-        <div className={`${card} p-6 mb-8`}>
+        <div className={`${card} p-6 mb-8 gradient-border-card hover:-translate-y-1 hover:shadow-lg transition-all duration-300`}>
           <div>
-            <label className="text-gray-700 text-sm font-medium block mb-2">📖 Custom Phrase (15-20 seconds)</label>
+            <label className="text-slate-700 text-sm font-semibold block mb-2">
+              📖 Custom Phrase (15-20 seconds)
+            </label>
             <textarea
               value={customPhrase}
               onChange={(e) => setCustomPhrase(e.target.value)}
-              placeholder="Enter a phrase to read aloud, or leave blank for default..."
-              className={`${input} min-h-20`}
+              placeholder="Hi, this is a patient access agent from Kyron Medical calling..."
+              className={`${inputClasses} min-h-20`}
             />
           </div>
         </div>
 
-                <RecordStep onRecorded={onRecord} stepStatus={recordStatus} customPhrase={customPhrase} />
-        <div className="h-px bg-gray-300 my-8" />
+        <RecordStep
+          onRecorded={onRecord}
+          stepStatus={recordStatus}
+          customPhrase={customPhrase}
+        />
+        <div className="h-px bg-gray-200 my-8 step-divider" />
 
-        <SetupStep setupStep={step} agentId={agentId} voiceId={voiceId} error={err} onRetry={retry} stepStatus={setupStatus} voiceName={name} />
-        <div className="h-px bg-gray-300 my-8" />
+        <SetupStep
+          setupStep={step}
+          agentId={agentId}
+          voiceId={voiceId}
+          error={err}
+          onRetry={retry}
+          stepStatus={setupStatus}
+          voiceName={name}
+        />
+        <div className="h-px bg-gray-200 my-8 step-divider" />
 
         <CallStep agentId={agentId} stepStatus={callStatus} />
       </div>

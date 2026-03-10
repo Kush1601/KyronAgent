@@ -130,12 +130,12 @@ export function RecordStep({
           : "idle";
   const label =
     state === "recording"
-      ? "● recording"
+      ? "● Recording"
       : state === "paused"
-        ? "⏸ paused"
+        ? "⏸ Paused"
         : state === "stopped"
-          ? "saved ✓"
-          : "waiting";
+          ? "Saved ✓"
+          : "Waiting";
   const text = customPhrase || DEFAULT_TEXT;
 
   return (
@@ -149,18 +149,18 @@ export function RecordStep({
         sub="Read aloud — 15-20 seconds"
         status={stepStatus}
       />
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 gradient-border-card hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
         <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-5">
-          <span className="text-xs tracking-widest uppercase text-green-700 mb-2.5 block font-mono font-semibold">
+          <span className="text-xs tracking-widest uppercase text-primary-700 mb-2.5 block font-mono font-semibold">
             📖 Read this
           </span>
-          <p className="text-base leading-relaxed text-gray-900">{text}</p>
+          <p className="text-lg leading-relaxed text-slate-800">{text}</p>
         </div>
 
         <Waveform stream={stream} active={state === "recording"} />
 
         <div className="text-center mb-5">
-          <span className="text-5xl tracking-widest font-mono text-green-700">
+          <span className="text-6xl tracking-widest font-mono text-primary-700">
             {fmt(secs).split(":")[0]}
             <span className="animate-pulse">:</span>
             {fmt(secs).split(":")[1]}
@@ -170,7 +170,7 @@ export function RecordStep({
         <div className="flex flex-wrap gap-3 mb-5">
           {state === "idle" && (
             <button
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all"
+              className="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-medium transition-all animate-morph-pulse"
               onClick={start}
             >
               <span>⏺</span> Start
@@ -195,7 +195,7 @@ export function RecordStep({
           {state === "paused" && (
             <>
               <button
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all"
+                className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-medium transition-all"
                 onClick={resume}
               >
                 ▶ Resume
@@ -220,7 +220,7 @@ export function RecordStep({
 
         {url && state === "stopped" && (
           <div className="flex items-center gap-3 bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 mb-4">
-            <span className="text-green-600">▶</span>
+            <span className="text-primary-600">▶</span>
             <audio controls src={url} className="flex-1 h-7" />
           </div>
         )}

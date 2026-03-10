@@ -167,14 +167,14 @@ export function CallStep({
         : "idle";
   const label =
     state === "connecting"
-      ? "connecting…"
+      ? "Connecting…"
       : state === "connected"
-        ? `live • ${fmt(timer)}`
+        ? `Live • ${fmt(timer)}`
         : state === "ended"
-          ? "ended"
+          ? "Ended"
           : state === "error"
-            ? "error"
-            : "idle";
+            ? "Error"
+            : "Idle";
 
   return (
     <div
@@ -187,7 +187,7 @@ export function CallStep({
         sub="Chat with yourself for 5 minutes"
         status={stepStatus}
       />
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 gradient-border-card hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
         <div
           ref={box}
           className="bg-gray-50 border border-gray-200 rounded-xl p-5 min-h-[200px] max-h-[360px] overflow-y-auto mb-5"
@@ -219,7 +219,7 @@ export function CallStep({
                       {isAgent ? "clone" : "you"}
                     </div>
                     <div
-                      className={`px-3.5 py-2.5 rounded-xl text-sm leading-snug border ${isAgent ? "bg-green-50 border-green-200 text-gray-900" : "bg-blue-50 border-blue-200 text-gray-900"}`}
+                      className={`px-4 py-3 rounded-2xl text-base leading-snug border ${isAgent ? "bg-primary-50 border-primary-200 text-gray-900" : "bg-blue-50 border-blue-200 text-gray-900"}`}
                     >
                       {item.text}
                     </div>
@@ -243,7 +243,7 @@ export function CallStep({
 
           {(state === "idle" || state === "ended" || state === "error") && (
             <button
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all"
+              className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-medium transition-all"
               onClick={start}
               disabled={!agentId}
             >
@@ -253,10 +253,10 @@ export function CallStep({
 
           {state === "connecting" && (
             <button
-              className="px-4 py-2 bg-green-600 text-white rounded-xl font-medium"
+              className="px-4 py-2 bg-primary-600 text-white rounded-xl font-medium shadow-[0_0_15px_rgba(88,124,232,0.6)] animate-pulse"
               disabled
             >
-              <span className="w-3 h-3 rounded-full border-2 border-green-300 border-t-white animate-spin inline-block mr-2" />
+              <span className="w-3 h-3 rounded-full border-2 border-primary-300 border-t-white animate-spin inline-block mr-2" />
               Connecting…
             </button>
           )}
@@ -264,7 +264,7 @@ export function CallStep({
           {state === "connected" && (
             <>
               <button
-                className={`px-4 py-2 rounded-xl font-medium transition-all ${paused ? "bg-green-100 text-green-700 border border-green-300" : "bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200"}`}
+                className={`px-4 py-2 rounded-xl font-medium transition-all ${paused ? "bg-primary-100 text-primary-700 border border-primary-300" : "bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200"}`}
                 onClick={toggle}
               >
                 {paused ? "▶ Resume" : "⏸ Pause"}

@@ -5,8 +5,8 @@ import type { StepStatus } from "@/lib/types";
 const NUM_STYLES: Record<StepStatus, string> = {
   pending: "border border-gray-300 text-gray-400",
   active:
-    "border border-green-600 text-green-600 shadow-[0_0_12px_rgba(34,197,94,0.3)]",
-  done: "bg-green-600 border-0 text-white",
+    "border border-primary-600 text-primary-600 shadow-[0_0_12px_rgba(88,124,232,0.3)]",
+  done: "bg-primary-600 border-0 text-white",
 };
 
 export function StepHeader({
@@ -29,12 +29,11 @@ export function StepHeader({
       </div>
       <div>
         <h2
-          className="text-xl font-bold text-gray-900"
-          style={{ fontFamily: "Syne, sans-serif" }}
+          className="text-2xl font-bold text-slate-950 tracking-tight"
         >
           {title}
         </h2>
-        <p className="text-xs text-gray-600 mt-0.5">{sub}</p>
+        <p className="text-sm text-slate-500 mt-0.5">{sub}</p>
       </div>
     </div>
   );

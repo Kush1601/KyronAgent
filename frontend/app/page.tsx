@@ -1,5 +1,5 @@
-import { VogenApp } from "@/components/VogenApp";
+import { KyronApp } from "@/components/KyronApp";
 
 export default function Home() {
-  return <VogenApp />;
+  return <KyronApp />;
 }

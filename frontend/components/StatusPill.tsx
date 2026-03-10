@@ -6,7 +6,7 @@ const STYLES: Record<Variant, { pill: string; dot: string; pulse?: boolean }> = 
   idle: { pill: "bg-gray-100 text-gray-600 border border-gray-300", dot: "bg-gray-400" },
   recording: { pill: "bg-red-100 text-red-700 border border-red-300", dot: "bg-red-500", pulse: true },
   paused: { pill: "bg-yellow-100 text-yellow-700 border border-yellow-300", dot: "bg-yellow-500" },
-  done: { pill: "bg-green-100 text-green-700 border border-green-300", dot: "bg-green-500" },
+  done: { pill: "bg-primary-100 text-primary-700 border border-primary-300", dot: "bg-primary-500" },
   calling: { pill: "bg-blue-100 text-blue-700 border border-blue-300", dot: "bg-blue-500", pulse: true },
   error: { pill: "bg-red-100 text-red-700 border border-red-300", dot: "bg-red-500" },
 };
