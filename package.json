@@ -1,0 +1,30 @@
+{
+  "name": "vogen",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vogen - Record your voice, AI clones it, you talk to an agent that sounds exactly like you",
+  "scripts": {
+    "dev": "npm run dev:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "npm run start:frontend",
+    "start:frontend": "cd frontend && npm start",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt && cd .."
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": [
+    "voiceclone",
+    "vogent",
+    "voice-ai",
+    "conversational-ai",
+    "webrtc"
+  ],
+  "author": "",
+  "license": "MIT"
+}

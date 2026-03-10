@@ -1,0 +1,26 @@
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/venv/
+
+# Build output
+frontend/.next/
+frontend/out/
+__pycache__/
+*.pyc
+*.pyo
+*.pycache
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Logs
+*.log

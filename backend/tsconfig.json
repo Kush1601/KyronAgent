@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["ts-stub.ts"],
+  "exclude": ["node_modules", "dist", "venv"]
+}
