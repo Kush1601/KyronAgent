@@ -1,8 +1,10 @@
-# 🎙️ Vogen — AI Voice Cloning
+# 🏥 Kyron Medical — AI Voice Agents for Healthcare
 
-Record your voice → AI clones it → you talk to an agent that sounds exactly like you.
+**Modernize patient access and insurance workflows.**
 
-**Fully automated. No dashboard setup. Backend & Frontend separated.**
+Record a quick voice sample → AI clones it → you get a fully functional, conversational AI agent representing Kyron Medical that can handle eligibility, claim status, and prior authorizations.
+
+**Fully automated. Premium animated UI. Backend & Frontend separated.**
 
 ---
 
@@ -31,7 +33,7 @@ cd ..
 # Backend
 cd backend
 cp .env.local.example .env.local
-# Edit .env.local and add your Vogent API key (from app.vogent.ai → API Keys)
+# Edit .env.local and add your API key (from app.vogent.ai → API Keys)
 # VOGENT_SECRET_KEY=vogent_xxx...
 
 # Frontend
@@ -56,20 +58,18 @@ Open **http://localhost:3000** in your browser.
 
 ## 📁 Project Structure
 
-```
-vogen/
+```text
+kyron-app/
 ├── frontend/                 # Next.js React UI (Port 3000)
-│   ├── app/                  # Pages & layout
-│   ├── components/           # React components
-│   ├── lib/                  # Types & utilities
+│   ├── app/                  # Pages & layout (Inter font, globals.css)
+│   ├── components/           # React components (KyronApp, RecordStep, SetupStep, CallStep)
+│   ├── public/               # Static assets (kyron_logo.png)
 │   └── package.json
 │
 ├── backend/                  # Flask API Server (Port 5001)
 │   ├── app.py                # Flask app
 │   ├── run.py                # Entry point
-│   ├── config/               # Settings
-│   ├── routes/               # API routes
-│   ├── utils/vogent.py       # Vogent API client
+│   ├── utils/vogent.py       # API client & Kyron Medical AI Prompt
 │   └── requirements.txt
 │
 └── package.json              # Root config
@@ -77,36 +77,11 @@ vogen/
 
 ---
 
-## 🎯 How It Works
+## 🎯 Features & UI Polish
 
-```
-┌─────────────────────┐
-│   User Browser      │
-│  (Port 3000)        │
-└──────────┬──────────┘
-           │
-    ┌──────▼──────────────────────┐
-    │   FRONTEND (Next.js React)   │
-    │  - Voice recording UI        │
-    │  - Conversation display      │
-    │  - WebRTC call interface    │
-    └──────┬──────────────────────┘
-           │
-    ┌──────▼──────────────────────┐
-    │   BACKEND (Flask API)        │
-    │  - /api/setup                │
-    │  - /api/dial                 │
-    │  - Vogent integration        │
-    │  - Secret key protection     │
-    └──────┬──────────────────────┘
-           │
-    ┌──────▼──────────────────────┐
-    │      VOGENT CLOUD            │
-    │  - Voice cloning             │
-    │  - AI agent creation         │
-    │  - WebRTC connection         │
-    └──────────────────────────────┘
-```
+*   **Healthcare Prompting:** The AI is deeply prompted to act as a Kyron Medical agent, capable of discussing eligibility & benefits, claim status, prior authorizations, and denial appeals.
+*   **Premium Animations:** Features Next-Gen CSS animations including floating ambient orbs, morphing record pulses, gradient hover borders, and glowing active states to simulate AI thinking.
+*   **Professional Typography:** Uses the `Inter` font family and a clinical slate color palette to match `kyronmedical.com`.
 
 ---
 
@@ -116,19 +91,19 @@ vogen/
 
 1. **Setup**: Clone voice + create agent
 
-   ```
+   ```text
    POST /api/setup (audio + name)
    ↓
    Clone voice → POST /api/voices/clone
    ↓
-   Create agent → POST /api/agents (with inline prompt)
+   Create agent → POST /api/agents (with comprehensive Kyron Medical prompt)
    ↓
    Return: { voiceId, agentId }
    ```
 
 2. **Call**: Create WebRTC dial
 
-   ```
+   ```text
    POST /api/dial (agentId)
    ↓
    Create dial → POST /api/dials
@@ -136,7 +111,7 @@ vogen/
    Return: { dialToken, sessionId, dialId }
    ```
 
-3. **WebRTC**: Browser connects directly to Vogent
+3. **WebRTC**: Browser connects directly via voice
 
 ---
 
@@ -169,7 +144,7 @@ cd frontend && npm start
 2. New **Web Service** → Connect GitHub repo
 3. **Root Directory:** `backend`
 4. **Build:** `pip install -r requirements.txt`
-5. **Start:** `gunicorn app:app` (add gunicorn to requirements.txt) or `python run.py`
+5. **Start:** `gunicorn app:app` (add gunicorn to requirements.txt)
 6. **Environment:** `VOGENT_SECRET_KEY`, `FRONTEND_URL` (set after frontend deploy)
 
 ### Frontend — Vercel
@@ -188,7 +163,7 @@ cd frontend && npm start
 
 ## 🔐 Security
 
-✅ **Vogent API key lives ONLY on backend**  
+✅ **API keys live ONLY on backend**  
 ✅ Never exposed to browser  
 ✅ Frontend uses backend proxy  
 ✅ CORS configured for frontend URL  
@@ -199,13 +174,13 @@ cd frontend && npm start
 ## 🎯 Usage
 
 1. Enter your name (top-right)
-2. (Optional) Enter a custom phrase to read
+2. (Optional) Enter a custom phrase to read (default is Kyron-specific)
 3. Click **Start Recording**
 4. Read the sample text (15–20 seconds)
 5. Click **Stop & Save**
 6. Wait for clone to build (automatic)
 7. Click **Call Your Clone**
-8. Talk and hear yourself respond!
+8. Talk and hear your agent handle healthcare tasks!
 
 ---
 
@@ -214,10 +189,9 @@ cd frontend && npm start
 | Component    | Technology                    |
 | ------------ | ----------------------------- |
 | **Frontend** | Next.js 15 + React 19 + TypeScript |
-| **Styling**  | Tailwind CSS 3.4              |
+| **Styling**  | Tailwind CSS 3.4 (Custom animations) |
 | **Backend**  | Flask (Python)                |
 | **External** | Vogent (voice cloning + AI)   |
-| **WebRTC**   | Vogent Web Client SDK         |
 
 ---
 
@@ -239,9 +213,3 @@ cd frontend && npm start
 - Record for at least 15–20 seconds
 - Speak clearly and naturally
 - Check browser console for detailed errors
-
----
-
-## 📄 License
-
-MIT
