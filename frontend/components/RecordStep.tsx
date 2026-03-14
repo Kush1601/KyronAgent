@@ -49,12 +49,12 @@ export function RecordStep({
 
   const start = async () => {
     try {
-      const ms = await navigator.mediaDevices.getUserMedia({ 
+      const ms = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
           autoGainControl: true,
-        } 
+        },
       });
       str.current = ms;
       setStream(ms);
@@ -77,18 +77,22 @@ export function RecordStep({
       mr.start(100);
       setSecs(0);
       stopTimer();
-      
+
       // Auto-stop after 20 seconds
-      timer.current = setInterval(() => setSecs((s) => {
-        const newSecs = s + 1;
-        if (newSecs >= 20) {
-          mr.stop();
-          stopTimer();
-          setState("stopped");
-        }
-        return newSecs;
-      }), 1000);
-      
+      timer.current = setInterval(
+        () =>
+          setSecs((s) => {
+            const newSecs = s + 1;
+            if (newSecs >= 20) {
+              mr.stop();
+              stopTimer();
+              setState("stopped");
+            }
+            return newSecs;
+          }),
+        1000,
+      );
+
       setState("recording");
     } catch {
       alert("Microphone access denied");

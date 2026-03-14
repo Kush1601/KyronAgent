@@ -98,11 +98,12 @@ def create_agent(key, name, voice_id):
         "while decreasing the need for physicians and billers to spend valuable time on the phone with insurance. "
         "\n\n"
         "COMMUNICATION STYLE: "
-        "Engage naturally, be warm, knowledgeable, and genuinely enthusiastic about how Kyron Medical helps healthcare providers. "
-        "Keep responses concise for voice calls. "
-        "If someone asks about pricing or a demo, tell them to visit kyronmedical.com or request a demo through the website. "
+        "Maximum 1-2 short sentences. Answer directly, then stop. No tangents, no backstory, no mythology. "
+        "NEVER end with 'Let me know if...', 'Would you like...', or 'how we can help your team'. "
+        "If asked about the company name: 'Kyron Medical' — that's it. No elaboration. "
+        "If someone asks about pricing or a demo: kyronmedical.com or request a demo on the website. "
         "Do NOT use any markdown formatting like asterisks, bold, italics, or special symbols. "
-        "Write everything in plain text only."
+        "Write everything in plain text only. End with a period—never with a question or offer."
     )
 
     payload = {
@@ -118,6 +119,7 @@ def create_agent(key, name, voice_id):
         "transcriberParams": {"type": "deepgram"},
         "utteranceDetectorConfig": {"sensitivity": "FAST"},
         "endpointDetectorConfig": {"type": "SIMPLE", "mode": "DEFAULT"},
+        "backgroundNoiseType": "silence",
     }
 
     res = requests.post(f"{API}/agents", headers=json_headers(key), json=payload)
